@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "Popup Remover & Scroll Fixer",
+  "version": "1.0",
+  "description": "Removes annoying overlays and restores scrolling.",
+  "content_scripts": [
+    {
+      "matches": ["*://*.zonebourse.com/*"], 
+      "js": ["extension_content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
