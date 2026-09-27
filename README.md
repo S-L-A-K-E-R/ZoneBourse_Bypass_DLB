@@ -1,29 +1,26 @@
-# ZoneBourse — Daily Limit Bypass
+# ZoneBourse — Daily Limit Bypass (DLB)
 
-A small, unofficial **Firefox extension** that removes certain pop-up overlays on [ZoneBourse](https://www.zonebourse.com/) and restores page scrolling.
+A lightweight **Firefox extension available on the official [Firefox Add-ons store](https://addons.mozilla.org/fr/firefox/addon/zonebourse-dlb/)**. It removes blocking pop-up overlays on [ZoneBourse](https://www.zonebourse.com/) and restores page scrolling for a smoother browsing experience.
 
-This is a lightweight personal project. The source code and a packaged `.xpi` are available in this repository.
+[**Install ZoneBourse DLB on Firefox Add-ons**](https://addons.mozilla.org/fr/firefox/addon/zonebourse-dlb/)
 
-## What it does
+## Features
 
-- Removes targeted modal pop-ups and background overlays.
-- Restores scrolling when an overlay has locked the page.
-- Watches for overlays added after the page loads.
+- **Automatic pop-up removal:** detects and removes targeted blocking overlays.
+- **Scroll restoration:** unlocks scrolling when an overlay has locked the page.
+- **Works in the background:** watches for overlays that appear after a page loads.
+- **Lightweight:** runs only on ZoneBourse pages, with no configuration required.
 
-The extension runs on `zonebourse.com` pages. It only changes elements in your browser; it does not provide access to content your account is not authorized to view.
-
-## Project files
+## Source code
 
 | File | Description |
 | --- | --- |
 | [`manifest.json`](extension/code/manifest.json) | Firefox extension configuration. |
-| [`extension_content.js`](extension/code/extension_content.js) | Content script that handles overlays and scrolling. |
-| [`ZoneBourse_DLB_1-0-0.xpi`](extension/code/ZoneBourse_DLB_1-0-0.xpi) | Packaged extension (v1.0). |
+| [`extension_content.js`](extension/code/extension_content.js) | Content script for overlay removal and scroll restoration. |
+| [`ZoneBourse_DLB_1-0-0.xpi`](extension/code/ZoneBourse_DLB_1-0-0.xpi) | Packaged version 1.0, kept here for reference. |
 
-## Getting started
-
-You can browse the source code above or download the packaged `.xpi`. To install a local add-on, open Firefox's **Add-ons and themes** manager and select **Install Add-on From File**. Firefox may require the package to be signed.
+**Recommended installation:** use the [official Firefox Add-ons listing](https://addons.mozilla.org/fr/firefox/addon/zonebourse-dlb/) to install the extension.
 
 ## Disclaimer
 
-This is an independent project and is **not affiliated with ZoneBourse**. It may stop working if the website changes. Use it in accordance with the site's terms and your access rights.
+ZoneBourse DLB is an independent project published on Firefox Add-ons; it is **not affiliated with or endorsed by ZoneBourse**. It modifies page elements in your browser and does not grant access to server-restricted or subscription-only content. Website updates may affect its functionality.
