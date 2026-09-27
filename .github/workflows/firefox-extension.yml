@@ -1,0 +1,61 @@
+name: Firefox extension CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check JavaScript syntax
+        run: node --check extension/code/extension_content.js
+
+      - name: Test overlay handling (mocked DOM)
+        run: node --test tests/*.test.mjs
+
+      - name: Validate manifest and packaged XPI
+        run: python3 scripts/check_extension.py
+
+      - name: Mozilla Firefox extension lint
+        run: npx --yes web-ext lint --source-dir extension/code --ignore-files '*.xpi'
+
+  release:
+    name: Publish v1.0.0 after successful CI
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out validated commit
+        uses: actions/checkout@v4
+
+      - name: Create first tagged GitHub release if missing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            echo "v1.0.0 already published; nothing to do."
+            exit 0
+          fi
+          gh release create v1.0.0 \
+            extension/code/ZoneBourse_DLB_1-0-0.xpi \
+            --target "${GITHUB_SHA}" \
+            --title "ZoneBourse DLB v1.0.0" \
+            --notes-file .github/RELEASE_NOTES_v1.0.0.md
